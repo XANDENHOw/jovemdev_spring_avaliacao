@@ -29,8 +29,6 @@ public class Discipline {
 	private String name;
 	
 	@ManyToOne
-	private Teacher teacher;
-	
-	
+	private Course course;
 	
 }

@@ -1,35 +1,41 @@
 package br.com.alexandre.projeto_avaliacao.domain;
 
+
+import br.com.alexandre.projeto_avaliacao.domain.dto.Teacher_DisciplineDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "phone")
-public class Phone {
+@Entity(name = "teacher_discipline")
+public class Teacher_Discipline {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_phone")
-	@Setter
+	@Column(name = "id_teacher_discipline")
 	private Integer id;
 	
 	@ManyToOne
-	@NotNull
-	private Person person;
+	private Teacher teacher;
+
+	@ManyToOne
+	private Discipline discipline;
 	
-	@Column(name = "number_phone")
-	private String phoneNumber;
+	public Teacher_Discipline (Teacher_DisciplineDTO dto, Teacher teacher, Discipline discipline) {
+		this(dto.getId(), teacher, discipline);
+	}
+	
+	public Teacher_DisciplineDTO toDTO() {
+		return new Teacher_DisciplineDTO(id, teacher.getId(), teacher.getName(), discipline.getId(), discipline.getName());
+	}
 }
