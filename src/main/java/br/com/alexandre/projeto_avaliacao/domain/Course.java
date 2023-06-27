@@ -24,7 +24,7 @@ public class Course {
 	@Setter
 	private Integer id;
 	
-	@Column(name = "name_course")
+	@Column(name = "name_course", unique = true)
 	private String name;
 	
 }

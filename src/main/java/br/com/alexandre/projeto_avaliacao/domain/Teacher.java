@@ -1,6 +1,5 @@
 package br.com.alexandre.projeto_avaliacao.domain;
 
-
 import java.time.LocalDate;
 
 import br.com.alexandre.projeto_avaliacao.domain.dto.TeacherDTO;
@@ -22,37 +21,38 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "id")
 @Entity(name = "teacher")
 public class Teacher {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_teacher")
 	@Setter
 	private Integer id;
-	
+
 	@Column(name = "name_teacher")
 	private String name;
-	
+
 	@Column(name = "birth_teacher")
 	private LocalDate birth;
-	
+
 	@Column(name = "email_teacher", unique = true)
 	private String email;
-	
+
 	@Column(name = "password_teacher")
 	private String password;
-	 
+
 	@Column(name = "qualification_teacher")
 	private String qualification;
-	
+
 	@Column(name = "phone_teacher")
 	private String phone;
-	
-	
-	public Teacher (TeacherDTO dto) {
-		this(dto.getId(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()), dto.getEmail(), dto.getPassword(), dto.getQualification(), dto.getPhone());
+
+	public Teacher(TeacherDTO dto) {
+		this(dto.getId(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()), dto.getEmail(), dto.getPassword(),
+				dto.getQualification(), dto.getPhone());
 	}
-	
+
 	public TeacherDTO toDTO() {
-		return new TeacherDTO(this.id, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password, this.qualification, this.phone);
+		return new TeacherDTO(this.id, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password,
+				this.qualification, this.phone);
 	}
 }

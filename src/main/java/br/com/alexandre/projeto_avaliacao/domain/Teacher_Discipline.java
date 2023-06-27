@@ -1,6 +1,5 @@
 package br.com.alexandre.projeto_avaliacao.domain;
 
-
 import br.com.alexandre.projeto_avaliacao.domain.dto.Teacher_DisciplineDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,18 +23,19 @@ public class Teacher_Discipline {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_teacher_discipline")
 	private Integer id;
-	
+
 	@ManyToOne
 	private Teacher teacher;
 
 	@ManyToOne
 	private Discipline discipline;
-	
-	public Teacher_Discipline (Teacher_DisciplineDTO dto, Teacher teacher, Discipline discipline) {
+
+	public Teacher_Discipline(Teacher_DisciplineDTO dto, Teacher teacher, Discipline discipline) {
 		this(dto.getId(), teacher, discipline);
 	}
-	
+
 	public Teacher_DisciplineDTO toDTO() {
-		return new Teacher_DisciplineDTO(id, teacher.getId(), teacher.getName(), discipline.getId(), discipline.getName());
+		return new Teacher_DisciplineDTO(id, teacher.getId(), teacher.getName(), discipline.getId(),
+				discipline.getName());
 	}
 }

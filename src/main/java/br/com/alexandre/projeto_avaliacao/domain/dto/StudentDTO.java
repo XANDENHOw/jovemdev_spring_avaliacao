@@ -1,6 +1,5 @@
 package br.com.alexandre.projeto_avaliacao.domain.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class StudentDTO {
-	
+
 	private Integer registration;
 	private String name;
 	private String birth;
@@ -21,5 +20,5 @@ public class StudentDTO {
 	private String phone;
 	private Integer idClass;
 	private String classCode;
-	
+
 }

@@ -1,6 +1,5 @@
 package br.com.alexandre.projeto_avaliacao.domain;
 
-
 import java.time.LocalDate;
 
 import br.com.alexandre.projeto_avaliacao.domain.dto.StudentDTO;
@@ -21,38 +20,39 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "registration")
 @Entity(name = "student")
-public class Student{
-	
+public class Student {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "registration_student")
 	private Integer registration;
-	
+
 	@Column(name = "name_student")
 	private String name;
-	
+
 	@Column(name = "birth_student")
 	private LocalDate birth;
-	
+
 	@Column(name = "email_student", unique = true)
 	private String email;
-	
+
 	@Column(name = "password_student")
 	private String password;
-	
+
 	@Column(name = "phone_student")
 	private String phone;
-	
+
 	@ManyToOne
-	private Class classStudant;
-	
-	public Student (StudentDTO dto, Class studyClass) {
-		this(dto.getRegistration(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()),
-				dto.getEmail(), dto.getPassword(), dto.getPhone(), studyClass);
+	private Class classStudent;
+
+	public Student(StudentDTO dto, Class studyClass) {
+		this(dto.getRegistration(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()), dto.getEmail(),
+				dto.getPassword(), dto.getPhone(), studyClass);
 	}
-	
+
 	public StudentDTO toDTO() {
-		return new StudentDTO(this.registration, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password, this.phone, this.classStudant.getId(), this.classStudant.getCode());
+		return new StudentDTO(this.registration, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password,
+				this.phone, this.classStudent.getId(), this.classStudent.getCode());
 	}
-	
+
 }

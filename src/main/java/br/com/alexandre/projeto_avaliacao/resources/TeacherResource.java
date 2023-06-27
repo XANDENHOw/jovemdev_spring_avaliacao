@@ -20,50 +20,52 @@ import br.com.alexandre.projeto_avaliacao.services.TeacherService;
 @RestController
 @RequestMapping("/teachers")
 public class TeacherResource {
-	
+
 	@Autowired
 	private TeacherService service;
-	
+
 	@PostMapping
-	public ResponseEntity<TeacherDTO> insert(TeacherDTO dto){
+	public ResponseEntity<TeacherDTO> insert(TeacherDTO dto) {
 		Teacher teacher = service.save(new Teacher(dto));
 		return ResponseEntity.ok(teacher.toDTO());
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<TeacherDTO>> listAll(){
+	public ResponseEntity<List<TeacherDTO>> listAll() {
 		return ResponseEntity.ok(service.listAll().stream().map((teacher) -> teacher.toDTO()).toList());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<TeacherDTO> findById(@PathVariable Integer id){
+	public ResponseEntity<TeacherDTO> findById(@PathVariable Integer id) {
 		return ResponseEntity.ok(service.findById(id).toDTO());
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<TeacherDTO> update(@PathVariable Integer id, @RequestBody TeacherDTO dto){
+	public ResponseEntity<TeacherDTO> update(@PathVariable Integer id, @RequestBody TeacherDTO dto) {
 		return ResponseEntity.ok(service.update(new Teacher(dto)).toDTO());
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return ResponseEntity.ok().build();
 	}
-	
+
 	@GetMapping("/name/{name}")
-	public ResponseEntity<List<TeacherDTO>> findByNameContainsIgnoreCase(@PathVariable String name){
-		return ResponseEntity.ok(service.findByNameContainsIgnoreCase(name).stream().map((teacher) -> teacher.toDTO()).toList());
+	public ResponseEntity<List<TeacherDTO>> findByNameContainsIgnoreCase(@PathVariable String name) {
+		return ResponseEntity
+				.ok(service.findByNameContainsIgnoreCase(name).stream().map((teacher) -> teacher.toDTO()).toList());
 	}
 
 	@GetMapping("/qualification/{qualification}")
-	public ResponseEntity<List<TeacherDTO>> findByQualification(@PathVariable String qualification){
-		return ResponseEntity.ok(service.findByQualification(qualification).stream().map((teacher) -> teacher.toDTO()).toList());
+	public ResponseEntity<List<TeacherDTO>> findByQualification(@PathVariable String qualification) {
+		return ResponseEntity
+				.ok(service.findByQualification(qualification).stream().map((teacher) -> teacher.toDTO()).toList());
 	}
-	
+
 	@GetMapping("/email/{email}")
-	public ResponseEntity<TeacherDTO> findByEmail(@PathVariable String email){
+	public ResponseEntity<TeacherDTO> findByEmail(@PathVariable String email) {
 		return ResponseEntity.ok(service.findByEmail(email).toDTO());
 	}
-	
+
 }

@@ -25,7 +25,7 @@ public class Class {
 	@Setter
 	private Integer id;
 	
-	@Column(name = "code_class")
+	@Column(name = "code_class", unique = true)
 	private String code;
 	
 	@ManyToOne

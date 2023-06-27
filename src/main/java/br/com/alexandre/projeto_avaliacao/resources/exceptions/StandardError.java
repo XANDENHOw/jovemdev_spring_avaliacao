@@ -10,10 +10,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class StandardError {
-	
+
 	private LocalDateTime time;
 	private Integer status;
 	private String erro;
 	private String url;
-	
+
 }
