@@ -21,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
 	StudentRepository repository;
 
 	private void validate(Student student) {
-		if (student.getRegistration() == null || student.getName() == null || student.getEmail() == null
+		if (student.getName() == null || student.getEmail() == null
 				|| student.getPassword() == null || student.getPhone() == null || student.getBirth() == null
 				|| student.getClassStudent() == null) {
 			throw new IntegrityViolation("Os dados do aluno não podem ser nulos");

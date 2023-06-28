@@ -1,7 +1,6 @@
 package br.com.alexandre.projeto_avaliacao.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import br.com.alexandre.projeto_avaliacao.domain.Class;
 import br.com.alexandre.projeto_avaliacao.domain.Course;
@@ -19,7 +18,7 @@ public interface ClassService {
 
 	List<Class> listAll();
 
-	Optional<Class> findByCode(String code);
+	Class findByCode(String code);
 
 	List<Class> findByCourse(Course course);
 

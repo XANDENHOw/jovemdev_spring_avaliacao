@@ -20,7 +20,7 @@ public class TeacherServiceImpl implements TeacherService {
 	TeacherRepository repository;
 
 	private void validateTeacher(Teacher teacher) {
-		if (teacher.getId() == null || teacher.getName() == null || teacher.getBirth() == null
+		if (teacher.getName() == null || teacher.getBirth() == null
 				|| teacher.getEmail() == null || teacher.getPassword() == null || teacher.getQualification() == null
 				|| teacher.getPhone() == null) {
 			throw new IntegrityViolation("Você precisa informar todos os dados");

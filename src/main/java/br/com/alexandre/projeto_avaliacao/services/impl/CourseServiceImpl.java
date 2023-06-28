@@ -55,9 +55,8 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public List<Course> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course findByName(String name) {
+		return repository.findByName(name);
 	}
 
 }
