@@ -18,7 +18,7 @@ import br.com.alexandre.projeto_avaliacao.domain.dto.TeacherDTO;
 import br.com.alexandre.projeto_avaliacao.services.TeacherService;
 
 @RestController
-@RequestMapping("/teachers")
+@RequestMapping(value = "/teachers")
 public class TeacherResource {
 
 	@Autowired
@@ -26,8 +26,7 @@ public class TeacherResource {
 
 	@PostMapping
 	public ResponseEntity<TeacherDTO> insert(TeacherDTO dto) {
-		Teacher teacher = service.save(new Teacher(dto));
-		return ResponseEntity.ok(teacher.toDTO());
+		return ResponseEntity.ok(service.save(new Teacher(dto)).toDTO());
 	}
 
 	@GetMapping
@@ -67,5 +66,4 @@ public class TeacherResource {
 	public ResponseEntity<TeacherDTO> findByEmail(@PathVariable String email) {
 		return ResponseEntity.ok(service.findByEmail(email).toDTO());
 	}
-
 }

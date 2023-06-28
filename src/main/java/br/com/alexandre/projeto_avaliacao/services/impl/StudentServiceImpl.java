@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.alexandre.projeto_avaliacao.domain.Class;
+import br.com.alexandre.projeto_avaliacao.domain.StudyClass;
 import br.com.alexandre.projeto_avaliacao.domain.Student;
 import br.com.alexandre.projeto_avaliacao.repositories.StudentRepository;
 import br.com.alexandre.projeto_avaliacao.services.StudentService;
@@ -21,9 +21,9 @@ public class StudentServiceImpl implements StudentService {
 	StudentRepository repository;
 
 	private void validate(Student student) {
-		if (student.getRegistration() == null || student.getName() == null || student.getEmail() == null
+		if (student.getName() == null || student.getEmail() == null
 				|| student.getPassword() == null || student.getPhone() == null || student.getBirth() == null
-				|| student.getClassStudent() == null) {
+				|| student.getStudyClass() == null) {
 			throw new IntegrityViolation("Os dados do aluno não podem ser nulos");
 		}
 	}
@@ -61,18 +61,17 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public List<Student> findByName(String name) {
-		return repository.findByNameContaisIgnoreCase(name);
+		return repository.findByNameContainsIgnoreCase(name);
 	}
 
 	@Override
 	public List<Student> findByBirthYear(LocalDate birth) {
-		Integer year = birth.getYear();
-		return repository.findByBirthYear(year);
+		return repository.findByBirth(birth);
 	}
 
 	@Override
-	public List<Student> findByClass(Class studyClass) {
-		List<Student> list = repository.findByClass(studyClass);
+	public List<Student> findByClass(StudyClass studyClass) {
+		List<Student> list = repository.findByStudyClass(studyClass);
 		if(list.size() == 0) {
 			new ObjectNotFound("Não existem alunos matriculados nessa turma");
 		}

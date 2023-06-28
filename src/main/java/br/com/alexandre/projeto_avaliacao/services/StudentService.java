@@ -3,7 +3,7 @@ package br.com.alexandre.projeto_avaliacao.services;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.alexandre.projeto_avaliacao.domain.Class;
+import br.com.alexandre.projeto_avaliacao.domain.StudyClass;
 import br.com.alexandre.projeto_avaliacao.domain.Student;
 
 public interface StudentService {
@@ -22,7 +22,7 @@ public interface StudentService {
 
 	List<Student> findByBirthYear(LocalDate birth);
 
-	List<Student> findByClass(Class studyClass);
+	List<Student> findByClass(StudyClass studyClass);
 
 	Student findByEmail(String email);
 }

@@ -1,7 +1,6 @@
 package br.com.alexandre.projeto_avaliacao.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import br.com.alexandre.projeto_avaliacao.domain.Course;
 
@@ -17,6 +16,6 @@ public interface CourseService {
 
 	List<Course> listAll();
 
-	List<Course> findByName(String name);
+	Course findByName(String name);
 
 }

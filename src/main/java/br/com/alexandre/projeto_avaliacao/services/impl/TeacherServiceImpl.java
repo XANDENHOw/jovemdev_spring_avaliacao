@@ -20,16 +20,28 @@ public class TeacherServiceImpl implements TeacherService {
 	TeacherRepository repository;
 
 	private void validateTeacher(Teacher teacher) {
-		if (teacher.getId() == null || teacher.getName() == null || teacher.getBirth() == null
+		if (teacher.getName() == null || teacher.getBirth() == null
 				|| teacher.getEmail() == null || teacher.getPassword() == null || teacher.getQualification() == null
 				|| teacher.getPhone() == null) {
 			throw new IntegrityViolation("Você precisa informar todos os dados");
+		}
+	}
+	
+	private void validateEmail(Teacher teacher) {
+		Optional<Teacher> optTeacher = repository.findByEmail(teacher.getEmail());
+		if(optTeacher.isPresent()) {
+			Teacher validaTeacher = optTeacher.get();
+			if(teacher.getId() != validaTeacher.getId()) {
+				throw new IntegrityViolation("Esse email já está sendo utilizado");
+			}
+			
 		}
 	}
 
 	@Override
 	public Teacher save(Teacher teacher) {
 		validateTeacher(teacher);
+		validateEmail(teacher);
 		return repository.save(teacher);
 	}
 
@@ -42,6 +54,7 @@ public class TeacherServiceImpl implements TeacherService {
 	public Teacher update(Teacher teacher) {
 		Teacher altTeacher = findById(teacher.getId());
 		validateTeacher(teacher);
+		validateEmail(teacher);
 		return repository.save(altTeacher);
 	}
 
@@ -63,7 +76,8 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public Teacher findByEmail(String email) {
-		return repository.findByEmail(email);
+		Optional<Teacher> teacher = repository.findByEmail(email);
+		return teacher.orElseThrow(() -> new ObjectNotFound("Email %s não encontrado!".formatted(email)));
 	}
 
 	@Override
@@ -74,8 +88,7 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public List<Teacher> findByBirthYear(LocalDate birth) {
-		Integer year = birth.getYear();
-		return repository.findByBirthYear(year);
+		return repository.findByBirth(birth);
 	}
 
 }

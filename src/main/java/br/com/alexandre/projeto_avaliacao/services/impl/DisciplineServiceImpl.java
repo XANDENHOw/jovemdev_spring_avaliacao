@@ -20,7 +20,7 @@ public class DisciplineServiceImpl implements DisciplineService {
 	DisciplineRepository repository;
 
 	private void validate(Discipline discipline) {
-		if (discipline.getId() == null || discipline.getName() == null || discipline.getCourse() == null) {
+		if (discipline.getName() == null || discipline.getCourse() == null) {
 			throw new IntegrityViolation("Os valores não podem ser nulos, preencha-os novamente");
 		}
 	}

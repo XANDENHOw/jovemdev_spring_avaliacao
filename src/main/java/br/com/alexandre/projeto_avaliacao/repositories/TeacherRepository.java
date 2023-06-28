@@ -1,6 +1,8 @@
 package br.com.alexandre.projeto_avaliacao.repositories;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,7 +16,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
 
 	List<Teacher> findByQualification(String qualification);
 
-	List<Teacher> findByBirthYear(Integer birth);
+	List<Teacher> findByBirth(LocalDate birth);
 
-	Teacher findByEmail(String email);
+	Optional<Teacher> findByEmail(String email);
 }

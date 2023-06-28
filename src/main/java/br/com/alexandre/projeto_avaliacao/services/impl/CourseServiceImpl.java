@@ -13,17 +13,17 @@ import br.com.alexandre.projeto_avaliacao.services.exceptions.IntegrityViolation
 import br.com.alexandre.projeto_avaliacao.services.exceptions.ObjectNotFound;
 
 @Service
-public class CourseServiceImpl implements CourseService{
+public class CourseServiceImpl implements CourseService {
 
 	@Autowired
 	CourseRepository repository;
-	
+
 	private void validate(Course course) {
-		if(course.getName() == null) {
+		if (course.getName() == null) {
 			throw new IntegrityViolation("O nome do curso não pode ser nulo");
 		}
 	}
-	
+
 	@Override
 	public Course save(Course course) {
 		validate(course);
@@ -55,9 +55,8 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public List<Course> findByName(String name) {
-		// TODO Auto-generated method stub
-		return null;
+	public Course findByName(String name) {
+		return repository.findByName(name);
 	}
 
 }

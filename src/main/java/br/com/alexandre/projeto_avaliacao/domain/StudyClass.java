@@ -16,16 +16,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "class")
-public class Class {
+@Entity(name = "studyclass")
+public class StudyClass {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_class")
+	@Column(name = "id_studyclass")
 	@Setter
 	private Integer id;
-	
-	@Column(name = "code_class", unique = true)
+
+	@Column(name = "code_studyclass")
 	private String code;
 	
 	@ManyToOne

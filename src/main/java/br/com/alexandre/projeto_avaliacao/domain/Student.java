@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -43,16 +44,17 @@ public class Student {
 	private String phone;
 
 	@ManyToOne
-	private Class classStudent;
+	@JoinColumn(name = "class_student_id_class")
+	private StudyClass studyClass;
 
-	public Student(StudentDTO dto, Class studyClass) {
+	public Student(StudentDTO dto, StudyClass studyClass) {
 		this(dto.getRegistration(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()), dto.getEmail(),
 				dto.getPassword(), dto.getPhone(), studyClass);
 	}
 
 	public StudentDTO toDTO() {
 		return new StudentDTO(this.registration, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password,
-				this.phone, this.classStudent.getId(), this.classStudent.getCode());
+				this.phone, this.studyClass.getId(), this.studyClass.getCode());
 	}
 
 }
