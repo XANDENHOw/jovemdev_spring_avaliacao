@@ -63,6 +63,6 @@ public class DisciplineResource {
 	@GetMapping("/course/{id}")
 	public ResponseEntity<List<Discipline>> findByCourse(@PathVariable Integer id) {
 		return ResponseEntity
-				.ok(service.FindByCourse(courseService.findById(id)).stream().map((discipline) -> discipline).toList());
+				.ok(service.findByCourse(courseService.findById(id)).stream().map((discipline) -> discipline).toList());
 	}
 }

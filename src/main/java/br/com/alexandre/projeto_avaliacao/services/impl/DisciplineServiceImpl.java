@@ -20,8 +20,11 @@ public class DisciplineServiceImpl implements DisciplineService {
 	DisciplineRepository repository;
 
 	private void validate(Discipline discipline) {
-		if (discipline.getName() == null || discipline.getCourse() == null) {
-			throw new IntegrityViolation("Os valores não podem ser nulos, preencha-os novamente");
+		if (discipline.getName() == null) {
+			throw new IntegrityViolation("O nome da disciplina não pode ser nulo");
+		}
+		if(discipline.getCourse() == null) {
+			throw new IntegrityViolation("A disciplina precisa estar vinculada a um curso");
 		}
 	}
 
@@ -56,15 +59,19 @@ public class DisciplineServiceImpl implements DisciplineService {
 	}
 
 	@Override
-	public List<Discipline> findByNameContainsIgnoreCase(String nome) {
-		return repository.findByNameContainsIgnoreCase(nome);
+	public List<Discipline> findByNameContainsIgnoreCase(String name) {
+		List<Discipline> list = repository.findByNameContainsIgnoreCase(name);
+		if(list.size() == 0) {
+			throw new ObjectNotFound("Nenhuma disciplina encontrada");
+		}
+		return list;
 	}
 
 	@Override
-	public List<Discipline> FindByCourse(Course course) {
+	public List<Discipline> findByCourse(Course course) {
 		List<Discipline> list = repository.findByCourse(course);
 		if(list.size() == 0) {
-			throw new ObjectNotFound("Nenhum curso cadastrado para essa disciplina");
+			throw new ObjectNotFound("Nenhuma disciplina cadastrada para esse curso");
 		}
 		return list;
 	}

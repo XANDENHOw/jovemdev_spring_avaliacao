@@ -10,7 +10,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
@@ -22,7 +21,7 @@ public class StudyClass {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_studyclass")
-	@Setter
+
 	private Integer id;
 
 	@Column(name = "code_studyclass")

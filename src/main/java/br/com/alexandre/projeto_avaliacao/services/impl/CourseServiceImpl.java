@@ -23,10 +23,21 @@ public class CourseServiceImpl implements CourseService {
 			throw new IntegrityViolation("O nome do curso não pode ser nulo");
 		}
 	}
+	
+	private void validaName(Course course) {
+		Optional<Course> optCourse = repository.findByName(course.getName());
+		if(optCourse.isPresent()) {
+			Course validaCourse = optCourse.get();
+			if(course.getId() != validaCourse.getId()) {
+				throw new IntegrityViolation("Já existe um curso com esse nome");
+			}
+		}
+	}
 
 	@Override
 	public Course save(Course course) {
 		validate(course);
+		validaName(course);
 		return repository.save(course);
 	}
 
@@ -34,6 +45,7 @@ public class CourseServiceImpl implements CourseService {
 	public Course update(Course course) {
 		Course altCourse = findById(course.getId());
 		validate(course);
+		validaName(course);
 		return repository.save(altCourse);
 	}
 
@@ -51,12 +63,13 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<Course> listAll() {
-		return repository.findAll();
+		return repository.findAll(); 
 	}
 
 	@Override
 	public Course findByName(String name) {
-		return repository.findByName(name);
+		Optional<Course> course = repository.findByName(name);
+		return course.orElseThrow(() -> new ObjectNotFound("Curso %s não encontrado!".formatted(name)));
 	}
 
 }

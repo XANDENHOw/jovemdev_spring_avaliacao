@@ -19,5 +19,5 @@ public interface DisciplineService {
 
 	List<Discipline> findByNameContainsIgnoreCase(String nome);
 
-	List<Discipline> FindByCourse(Course course);
+	List<Discipline> findByCourse(Course course);
 }

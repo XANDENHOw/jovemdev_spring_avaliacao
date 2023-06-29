@@ -20,10 +20,24 @@ public class TeacherServiceImpl implements TeacherService {
 	TeacherRepository repository;
 
 	private void validateTeacher(Teacher teacher) {
-		if (teacher.getName() == null || teacher.getBirth() == null
-				|| teacher.getEmail() == null || teacher.getPassword() == null || teacher.getQualification() == null
-				|| teacher.getPhone() == null) {
-			throw new IntegrityViolation("Você precisa informar todos os dados");
+		if (teacher.getName() == null) {
+			throw new IntegrityViolation("O nome do professor não pode ser nulo");
+		}
+		if (teacher.getBirth() == null) {
+			throw new IntegrityViolation("O professor precisa de uma data de nascimento(dd/MM/yyyy)");
+		}
+		if (teacher.getEmail() == null) {
+			throw new IntegrityViolation("O email não pode ser nulo");
+
+		}
+		if (teacher.getPassword() == null) {
+			throw new IntegrityViolation("A senha não pode ser nula");
+		}
+		if (teacher.getQualification() == null) {
+			throw new IntegrityViolation("A qualificação do professor não pode ser nula");
+		}
+		if (teacher.getPhone() == null) {
+			throw new IntegrityViolation("O telefone de contato não pode ser nulo");
 		}
 	}
 	
@@ -34,7 +48,6 @@ public class TeacherServiceImpl implements TeacherService {
 			if(teacher.getId() != validaTeacher.getId()) {
 				throw new IntegrityViolation("Esse email já está sendo utilizado");
 			}
-			
 		}
 	}
 
@@ -66,12 +79,20 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public List<Teacher> findByNameContainsIgnoreCase(String name) {
-		return repository.findByNameContainsIgnoreCase(name);
+		List<Teacher> list = repository.findByNameContainsIgnoreCase(name);
+		if(list.size() == 0) {
+			throw new ObjectNotFound("Nenhum professor encontrado");
+		}
+		return list;
 	}
 
 	@Override
 	public List<Teacher> findByQualification(String qualification) {
-		return repository.findByQualification(qualification);
+		List<Teacher> list = repository.findByQualification(qualification);
+		if(list.size() == 0) {
+			throw new ObjectNotFound("Nenhum professor com essa formação foi encontrado");
+		}
+		return list;
 	}
 
 	@Override
@@ -88,7 +109,11 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public List<Teacher> findByBirthYear(LocalDate birth) {
-		return repository.findByBirth(birth);
+		List<Teacher> list = repository.findByBirth(birth);
+		if(list.size() == 0) {
+			throw new ObjectNotFound("Nenhum professor nasceu nessa data");
+		}
+		return list;
 	}
 
 }

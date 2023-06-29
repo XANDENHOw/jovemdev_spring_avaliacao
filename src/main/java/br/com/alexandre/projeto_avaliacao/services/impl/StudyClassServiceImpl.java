@@ -24,9 +24,6 @@ public class StudyClassServiceImpl implements StudyClassService {
 		if (studyClass.getCode() == null) {
 			throw new IntegrityViolation("Para cadastrar uma turma, o código não pode ser nulo");
 		}
-		if (studyClass.getCourse() == null) {
-			throw new IntegrityViolation("Para cadastrar uma turma, o curso não pode ser nulo");
-		}
 		if (studyClass.getDiscipline() == null) {
 			throw new IntegrityViolation("Para cadastrar uma turma, a disciplina não pode ser nulo");
 		}
