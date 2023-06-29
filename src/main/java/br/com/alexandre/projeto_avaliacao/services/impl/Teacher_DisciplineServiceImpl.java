@@ -21,9 +21,11 @@ public class Teacher_DisciplineServiceImpl implements Teacher_DisciplineService 
 	Teacher_DisciplineRepository repository;
 
 	private void validate(Teacher_Discipline teacher_Discipline) {
-		if (teacher_Discipline.getDiscipline().getId() == null
-				|| teacher_Discipline.getTeacher().getId() == null) {
-			throw new IntegrityViolation("Você não pode cadastrar valores nulos(em branco), tente novamente");
+		if (teacher_Discipline.getDiscipline() == null) {
+			throw new IntegrityViolation("A disciplina não pode ser nula");
+		}
+		if (teacher_Discipline.getTeacher() == null) {
+			throw new IntegrityViolation("O professor não pode ser nulo");
 		}
 	}
 

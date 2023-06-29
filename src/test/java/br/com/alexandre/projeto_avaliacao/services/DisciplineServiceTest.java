@@ -183,4 +183,6 @@ public class DisciplineServiceTest extends BaseTests {
 		var exception = assertThrows(ObjectNotFound.class, () -> service.findByCourse(courseService.findById(4)));
 		assertEquals("Nenhuma disciplina cadastrada para esse curso", exception.getMessage());
 	}
+	
+	
 }

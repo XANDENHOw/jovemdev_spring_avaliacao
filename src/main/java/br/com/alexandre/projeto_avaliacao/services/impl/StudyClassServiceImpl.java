@@ -25,7 +25,11 @@ public class StudyClassServiceImpl implements StudyClassService {
 			throw new IntegrityViolation("Para cadastrar uma turma, o código não pode ser nulo");
 		}
 		if (studyClass.getDiscipline() == null) {
-			throw new IntegrityViolation("Para cadastrar uma turma, a disciplina não pode ser nulo");
+			throw new IntegrityViolation("Para cadastrar uma turma, a disciplina não pode ser nula");
+		}
+		if(studyClass.getCourse() == null) {
+			throw new IntegrityViolation("Para cadastrar uma turma, o curso não pode ser nulo");
+
 		}
 	}
 
@@ -61,14 +65,15 @@ public class StudyClassServiceImpl implements StudyClassService {
 
 	@Override
 	public StudyClass findByCode(String code) {
-		return repository.findByCode(code);
+		Optional<StudyClass> stdClass = repository.findByCode(code);
+		return stdClass.orElseThrow(() -> new ObjectNotFound("Turma %s não encontrada!".formatted(code)));
 	}
 
 	@Override
 	public List<StudyClass> findByCourse(Course course) {
 		List<StudyClass> list = repository.findByCourse(course);
 		if (list.size() == 0) {
-			throw new ObjectNotFound("Nenhum curso cadastrado para essa turma");
+			throw new ObjectNotFound("Nenhuma turma cadastrada para esse curso");
 		}
 		return list;
 	}
@@ -77,7 +82,7 @@ public class StudyClassServiceImpl implements StudyClassService {
 	public List<StudyClass> findByDiscipline(Discipline discipline) {
 		List<StudyClass> list = repository.findByDiscipline(discipline);
 		if (list.size() == 0) {
-			throw new ObjectNotFound("Nenhuma disciplina cadastrada para essa turma");
+			throw new ObjectNotFound("Nenhuma turma cadastrada para essa disciplina");
 		}
 		return list;
 	}

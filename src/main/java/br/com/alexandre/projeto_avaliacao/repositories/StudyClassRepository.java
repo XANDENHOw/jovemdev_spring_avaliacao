@@ -1,6 +1,7 @@
 package br.com.alexandre.projeto_avaliacao.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,6 @@ public interface StudyClassRepository extends JpaRepository<StudyClass, Integer>
 
 	List<StudyClass> findByDiscipline(Discipline discipline);
 
-	StudyClass findByCode(String code);
+	Optional<StudyClass> findByCode(String code);
 
 }
