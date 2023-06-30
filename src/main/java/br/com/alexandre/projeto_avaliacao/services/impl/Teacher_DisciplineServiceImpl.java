@@ -46,7 +46,7 @@ public class Teacher_DisciplineServiceImpl implements Teacher_DisciplineService 
 	public Teacher_Discipline findById(Integer id) {
 		Optional<Teacher_Discipline> teaDisc = repository.findById(id);
 		return teaDisc.orElseThrow(
-				() -> new ObjectNotFound("Nenhum professor foi vinculado a essa disciplina".formatted(id)));
+				() -> new ObjectNotFound("Professor %s não foi vinculado a essa disciplina".formatted(id)));
 	}
 
 	@Override

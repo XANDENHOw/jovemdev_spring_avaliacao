@@ -28,7 +28,7 @@ public class TeacherServiceTest extends BaseTests {
 	@DisplayName("Test insert teacher")
 	public void insert() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
-		var teacher = new Teacher(null, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766");
+		var teacher = new Teacher(null, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766", "ADMIN,USER");
 		service.save(teacher);
 		assertEquals("prof2", teacher.getName());
 	}
@@ -39,7 +39,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithEmailExistent() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.save(new Teacher(null, "prof3", birth, "email1@test.com", "senha3", "mestre", "834238472985")));
+				.save(new Teacher(null, "prof3", birth, "email1@test.com", "senha3", "mestre", "834238472985", "ADMIN,USER")));
 		assertEquals("Esse email já está sendo utilizado", exception.getMessage());
 	}
 
@@ -49,7 +49,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithNameNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.save(new Teacher(null, null, birth, "email12@test.com", "senha3", "mestre", "834238472985")));
+				.save(new Teacher(null, null, birth, "email12@test.com", "senha3", "mestre", "834238472985", "ADMIN,USER")));
 		assertEquals("O nome do professor não pode ser nulo", exception.getMessage());
 	}
 
@@ -58,7 +58,7 @@ public class TeacherServiceTest extends BaseTests {
 	@Sql(value = "classpath:/resources.sql/inserts.sql")
 	public void insertWithBirthNull() {
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.save(new Teacher(null, "teste", null, "email12@test.com", "senha3", "mestre", "834238472985")));
+				.save(new Teacher(null, "teste", null, "email12@test.com", "senha3", "mestre", "834238472985", "ADMIN,USER")));
 		assertEquals("O professor precisa de uma data de nascimento(dd/MM/yyyy)", exception.getMessage());
 	}
 
@@ -68,7 +68,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithEmailNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.save(new Teacher(null, "teste", birth, null, "senha3", "mestre", "834238472985")));
+				() -> service.save(new Teacher(null, "teste", birth, null, "senha3", "mestre", "834238472985", "ADMIN,USER")));
 		assertEquals("O email não pode ser nulo", exception.getMessage());
 	}
 
@@ -78,7 +78,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithPasswordNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.save(new Teacher(null, "teste", birth, "email12@test.com", null, "mestre", "834238472985")));
+				.save(new Teacher(null, "teste", birth, "email12@test.com", null, "mestre", "834238472985", "ADMIN,USER")));
 		assertEquals("A senha não pode ser nula", exception.getMessage());
 	}
 
@@ -88,7 +88,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithQualificationNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.save(new Teacher(null, "teste", birth, "email12@test.com", "senha", null, "834238472985")));
+				.save(new Teacher(null, "teste", birth, "email12@test.com", "senha", null, "834238472985", "ADMIN,USER")));
 		assertEquals("A qualificação do professor não pode ser nula", exception.getMessage());
 	}
 
@@ -98,7 +98,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void insertWithPhoneNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.save(new Teacher(null, "teste", birth, "email12@test.com", "senha", "mestre", null)));
+				() -> service.save(new Teacher(null, "teste", birth, "email12@test.com", "senha", "mestre", null, "ADMIN,USER")));
 		assertEquals("O telefone de contato não pode ser nulo", exception.getMessage());
 	}
 
@@ -142,7 +142,7 @@ public class TeacherServiceTest extends BaseTests {
 	@Sql(value = "classpath:/resources.sql/inserts.sql")
 	public void update() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
-		var teacher = new Teacher(3, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766");
+		var teacher = new Teacher(3, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766", "ADMIN,USER");
 		service.update(teacher);
 		assertEquals("prof2", teacher.getName());
 	}
@@ -153,7 +153,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateUnExistent() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(ObjectNotFound.class, () -> service
-				.update(new Teacher(30, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766")));
+				.update(new Teacher(30, "prof2", birth, "prof2@test.com", "senha2", "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("Professor 30 não encontrado!", exception.getMessage());
 	}
 
@@ -163,7 +163,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateEmailEquals() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.update(new Teacher(3, "prof2", birth, "email12@test.com", "senha2", "doutor", "999887766")));
+				.update(new Teacher(3, "prof2", birth, "email12@test.com", "senha2", "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("Esse email já está sendo utilizado", exception.getMessage());
 	}
 
@@ -173,7 +173,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateWithNameNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.update(new Teacher(3, null, birth, "email123@test.com", "senha2", "doutor", "999887766")));
+				.update(new Teacher(3, null, birth, "email123@test.com", "senha2", "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("O nome do professor não pode ser nulo", exception.getMessage());
 	}
 
@@ -182,7 +182,7 @@ public class TeacherServiceTest extends BaseTests {
 	@Sql(value = "classpath:/resources.sql/inserts.sql")
 	public void updateWithBirthNull() {
 		var exception = assertThrows(IntegrityViolation.class, () -> service
-				.update(new Teacher(3, "null", null, "email123@test.com", "senha2", "doutor", "999887766")));
+				.update(new Teacher(3, "null", null, "email123@test.com", "senha2", "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("O professor precisa de uma data de nascimento(dd/MM/yyyy)", exception.getMessage());
 	}
 
@@ -192,7 +192,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateEmailNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.update(new Teacher(3, "prof2", birth, null, "senha2", "doutor", "999887766")));
+				() -> service.update(new Teacher(3, "prof2", birth, null, "senha2", "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("O email não pode ser nulo", exception.getMessage());
 	}
 
@@ -202,7 +202,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateWithPasswordNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", null, "doutor", "999887766")));
+				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", null, "doutor", "999887766", "ADMIN,USER")));
 		assertEquals("A senha não pode ser nula", exception.getMessage());
 	}
 	
@@ -212,7 +212,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateWithQualificationNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", "null", null, "999887766")));
+				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", "null", null, "999887766", "ADMIN,USER")));
 		assertEquals("A qualificação do professor não pode ser nula", exception.getMessage());
 	}
 
@@ -222,7 +222,7 @@ public class TeacherServiceTest extends BaseTests {
 	public void updateWithPhoneNull() {
 		LocalDate birth = DateUtils.strToLocalDate("02/01/2000");
 		var exception = assertThrows(IntegrityViolation.class,
-				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", "null", "null", null)));
+				() -> service.update(new Teacher(3, "null", birth, "email123@test.com", "null", "null", null, "ADMIN,USER")));
 		assertEquals("O telefone de contato não pode ser nulo", exception.getMessage());
 	}
 	

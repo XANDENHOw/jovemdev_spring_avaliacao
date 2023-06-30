@@ -19,5 +19,6 @@ public class TeacherDTO {
 	private String password;
 	private String qualification;
 	private String phone;
+	private String role;
 	
 }

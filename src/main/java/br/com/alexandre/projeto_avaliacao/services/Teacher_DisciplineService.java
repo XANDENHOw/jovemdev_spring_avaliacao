@@ -21,4 +21,5 @@ public interface Teacher_DisciplineService {
 	List<Teacher_Discipline> findByTeacher(Teacher teacher);
 
 	List<Teacher_Discipline> findByDiscipline(Discipline discipline);
+
 }

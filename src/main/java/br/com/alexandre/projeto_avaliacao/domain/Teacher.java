@@ -45,13 +45,16 @@ public class Teacher {
 	@Column(name = "phone_teacher")
 	private String phone;
 
+	@Column(name = "role_teacher")
+	private String role;
+
 	public Teacher(TeacherDTO dto) {
 		this(dto.getId(), dto.getName(), DateUtils.strToLocalDate(dto.getBirth()), dto.getEmail(), dto.getPassword(),
-				dto.getQualification(), dto.getPhone());
+				dto.getQualification(), dto.getPhone(), dto.getRole());
 	}
 
 	public TeacherDTO toDTO() {
 		return new TeacherDTO(this.id, this.name, DateUtils.LocalDateToStr(birth), this.email, this.password,
-				this.qualification, this.phone);
+				this.qualification, this.phone, this.role);
 	}
 }

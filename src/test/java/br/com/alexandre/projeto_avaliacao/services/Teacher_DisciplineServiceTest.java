@@ -102,7 +102,7 @@ public class Teacher_DisciplineServiceTest extends BaseTests{
 	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
 	public void updateIdUnexistent() {
 		var exception = assertThrows(ObjectNotFound.class, () -> service.update(new Teacher_Discipline(10, teacherService.findById(4), disciplineService.findById(3))));
-		assertEquals("Nenhum professor foi vinculado a essa disciplina", exception.getMessage());
+		assertEquals("Professor 10 não foi vinculado a essa disciplina", exception.getMessage());
 	}
 	
 	@Test
@@ -147,5 +147,95 @@ public class Teacher_DisciplineServiceTest extends BaseTests{
 	public void updateWithDisciplineUnexistent() {
 		var exception = assertThrows(ObjectNotFound.class, () -> service.update(new Teacher_Discipline(3, teacherService.findById(3), disciplineService.findById(30))));
 		assertEquals("A disciplina 30 não existe", exception.getMessage());
+	}
+	
+	@Test
+	@DisplayName("Test lista todos")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void listAll() {
+		var list = service.listAll();
+		assertEquals(3, list.size());
+	}
+	
+	@Test
+	@DisplayName("Test delete")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void delete() {
+		service.delete(3);
+		var list = service.listAll();
+		assertEquals(2, list.size());
+		
+	}
+	@Test
+		@DisplayName("Test delete id inexistente")
+		@Sql(value = "classpath:/resources.sql/inserts.sql")
+		@Sql(value = "classpath:/resources.sql/courses.sql")
+		@Sql(value = "classpath:/resources.sql/disciplines.sql")
+		@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+		public void deleteIdUnexistent() {
+			var exception = assertThrows(ObjectNotFound.class, () -> service.delete(30));
+			assertEquals("Professor 30 não foi vinculado a essa disciplina", exception.getMessage());
+			var list = service.listAll();
+			assertEquals(3, list.size());
+	}
+	
+	@Test
+	@DisplayName("Test buscar por disciplinas")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void findByDiscipline() {
+		var disciplines = service.findByDiscipline(disciplineService.findById(3));
+		assertEquals(1, disciplines.size());
+	}
+	
+	@Test
+	@DisplayName("Test buscar por curso inexistente")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void findByDisciplineUnexistent() {
+		var exception = assertThrows(ObjectNotFound.class, () -> service.findByDiscipline(disciplineService.findById(30)));
+		assertEquals("A disciplina 30 não existe", exception.getMessage());
+	}
+
+	@Test
+	@DisplayName("Test buscar por professor sem disciplina")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void findByDisciplineWithoutTeacher() {
+		
+	}
+	
+	@Test
+	@DisplayName("Test buscar por professores")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void findByTeacher() {
+		var disciplines = service.findByTeacher(teacherService.findById(3));
+		assertEquals(1, disciplines.size());
+	}
+	
+	@Test
+	@DisplayName("Test buscar por curso inexistente")
+	@Sql(value = "classpath:/resources.sql/inserts.sql")
+	@Sql(value = "classpath:/resources.sql/courses.sql")
+	@Sql(value = "classpath:/resources.sql/disciplines.sql")
+	@Sql(value = "classpath:/resources.sql/teacher_discipline.sql")
+	public void findByTeacherUnexistent() {
+		var exception = assertThrows(ObjectNotFound.class, () -> service.findByTeacher(teacherService.findById(30)));
+		assertEquals("Professor 30 não encontrado!", exception.getMessage());
 	}
 }
