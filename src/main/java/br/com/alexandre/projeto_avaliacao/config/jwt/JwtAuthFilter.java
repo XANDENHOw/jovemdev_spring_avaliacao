@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter{
-
+	
 	@Autowired
     private JwtUtil jwtUtil;
 
@@ -44,4 +44,5 @@ public class JwtAuthFilter extends OncePerRequestFilter{
         }
         filterChain.doFilter(request, response);
     }
+
 }

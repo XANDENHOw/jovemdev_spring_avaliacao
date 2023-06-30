@@ -31,8 +31,7 @@ public class JwtResource {
 		if (authentication.isAuthenticated()) {
 			return jwtUtil.generateToken(loginDto.getEmail());
 		} else {
-			throw new UsernameNotFoundException("Usuário inválido");
+			throw new UsernameNotFoundException("Professor inválido");
 		}
-
 	}
 }
